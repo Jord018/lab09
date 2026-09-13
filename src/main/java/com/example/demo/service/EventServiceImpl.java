@@ -1,11 +1,16 @@
 package com.example.demo.service;
 
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.example.demo.dao.EventDao;
+import com.example.demo.dao.OrganizerDao;
 import com.example.demo.entity.Event;
+import com.example.demo.entity.Organizer;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -13,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 public class EventServiceImpl implements EventService{
 
     final EventDao eventDao;
+    final OrganizerDao organizerDao;
 
     @Override
     public Integer getEventSize() {
@@ -30,7 +36,16 @@ public class EventServiceImpl implements EventService{
     }
 
     @Override
+    @Transactional
     public Event save(Event event) {
+        if (event.getOrganizer() == null || event.getOrganizer().getId() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The organizer id is required");
+        }
+        Organizer organizer = organizerDao.findById(event.getOrganizer().getId())
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "Organizer not found"));
+        event.setOrganizer(organizer);
+        organizer.getOwnEvents().add(event);
         return eventDao.save(event);
     }
 }

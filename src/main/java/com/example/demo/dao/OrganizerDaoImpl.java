@@ -1,5 +1,7 @@
 package com.example.demo.dao;
 
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
@@ -17,5 +19,10 @@ public class OrganizerDaoImpl implements OrganizerDao {
     @Override
     public Page<Organizer> getOrganizer(Pageable pageRequest) {
         return organizerRepository.findAll(pageRequest);
+    }
+
+    @Override
+    public Optional<Organizer> findById(Long id) {
+        return organizerRepository.findById(id);
     }
 }
