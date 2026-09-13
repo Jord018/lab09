@@ -14,6 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.example.demo.entity.Event;
 import com.example.demo.service.EventService;
+import com.example.demo.util.LabMapper;
 
 import lombok.RequiredArgsConstructor;
 
@@ -29,16 +30,16 @@ public ResponseEntity<?> getEventLists(@RequestParam(value = "_limit", required 
     HttpHeaders responseHeaders = new HttpHeaders();
     responseHeaders.set("x-total-count", String.valueOf(pageOutput.getTotalElements()));
     try {
-        return ResponseEntity.ok().headers(responseHeaders).body(pageOutput.getContent());
+        return ResponseEntity.ok().headers(responseHeaders).body(LabMapper.INSTANCE.getEventDto(pageOutput.getContent()));
     } catch (IndexOutOfBoundsException e) {
-        return ResponseEntity.ok().headers(responseHeaders).body(pageOutput.getContent());
+        return ResponseEntity.ok().headers(responseHeaders).body(LabMapper.INSTANCE.getEventDto(pageOutput.getContent()));
     }
 }
 @GetMapping("events/{id}")
 public ResponseEntity<?> getEvent(@PathVariable("id") Long id) {
     Event output = eventService.getEvent(id);
     if (output != null){
-        return ResponseEntity.ok(output);
+        return ResponseEntity.ok(LabMapper.INSTANCE.getEventDto(output));
     } else {
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The given id is not found");
     }
@@ -47,7 +48,7 @@ public ResponseEntity<?> getEvent(@PathVariable("id") Long id) {
 @PostMapping("/events")
 public ResponseEntity<?> addEvent(@RequestBody Event event) {
     Event output = eventService.save(event);
-    return ResponseEntity.ok(output);
+    return ResponseEntity.ok(LabMapper.INSTANCE.getEventDto(output));
 }
 
 }
