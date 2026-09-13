@@ -23,7 +23,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .date("3rd Sept")
                 .time("3.00-4.00 pm.")
                 .petsAllowed(false)
-                .organizer("CAMT").build());
+                .build());
 
         eventRepository.save(Event.builder()
                 .category("Academic")
@@ -33,7 +33,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .date("21th Jan")
                 .time("8.00am-4.00 pm.")
                 .petsAllowed(false)
-                .organizer("CMU").build());
+                .build());
 
         eventRepository.save(Event.builder()
                 .category("Cultural")
@@ -43,7 +43,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .date("21th Nov")
                 .time("8.00-10.00 pm.")
                 .petsAllowed(false)
-                .organizer("Chiang Mai").build());
+                .build());
 
         eventRepository.save(Event.builder()
                 .category("Cultural")
@@ -53,6 +53,6 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .date("13th April")
                 .time("10.00am - 6.00 pm.")
                 .petsAllowed(true)
-                .organizer("Chiang Mai Municipality").build());
+                .build());
     }
 }
