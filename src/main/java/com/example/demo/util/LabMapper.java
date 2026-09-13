@@ -9,6 +9,8 @@ import com.example.demo.entity.Event;
 import com.example.demo.entity.EventDTO;
 import com.example.demo.entity.Organizer;
 import com.example.demo.entity.OrganizerDTO;
+import com.example.demo.entity.Participant;
+import com.example.demo.entity.ParticipantEventsDTO;
 
 @Mapper
 public interface LabMapper {
@@ -17,4 +19,6 @@ public interface LabMapper {
     List<EventDTO> getEventDto(List<Event> events);
     OrganizerDTO getOrganizerDTO(Organizer organizer);
     List<OrganizerDTO> getOrganizerDTO(List<Organizer> organizers);
+    ParticipantEventsDTO getParticipantEventsDTO(Participant participant);
+    List<ParticipantEventsDTO> getParticipantEventsDTO(List<Participant> participants);
 }
