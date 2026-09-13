@@ -1,0 +1,16 @@
+
+spring:
+  application:
+    name: demo
+  datasource:
+    url: jdbc:postgresql://localhost:5432/selabdb
+    username: postgres
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: create
+  profiles:
+    active: 
+        - db
+server:
+    port: 8081
