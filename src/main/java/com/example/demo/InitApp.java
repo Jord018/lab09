@@ -9,6 +9,7 @@ import com.example.demo.entity.Organizer;
 import com.example.demo.repository.EventRepository;
 import com.example.demo.repository.OrganizerRepository;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 @Component
 @RequiredArgsConstructor
@@ -17,6 +18,7 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
     final OrganizerRepository organizerRepository;
 
     @Override
+    @Transactional
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
         Organizer org1, org2, org3;
         org1 = organizerRepository.save(Organizer.builder()
